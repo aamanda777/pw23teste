@@ -8,15 +8,15 @@
 </head>
 <body>
 
-    <h1>Site lindão</h1>
+    <h1>Meu site 💙</h1>
     <!-- Menu -->
     <div>
         <ul>
-            <li><a href="{{ route('home')}} ">Home</a></li>
+            <li><a href="{{ route('home')}} ">Página Inicial</a></li>
             <li><a href="{{ route('produtos')}}">Produtos</a></li>
         </ul>
     </div>
-    <hr style="height:6px;background-color:deepskyblue">
+    <hr>
 
     {{-- Conteúdo --}}
     @yield('content')

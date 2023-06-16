@@ -35,7 +35,7 @@ class ProdutosController extends Controller
 
         Produto::create($dados);
 
-        return redirect()->route('produtos')->with('sucesso', 'Produto inserido com sucesso');
+        return redirect()->route('produtos')->with('sucesso', 'Produto inserido com sucesso 🥰');
     }
 
     public function edit(Produto $produto) {
@@ -58,7 +58,7 @@ class ProdutosController extends Controller
 
         $produto->fill($dados)->save();
 
-        return redirect()->route('produtos')->with('sucesso', 'Produto alterado com sucesso');
+        return redirect()->route('produtos')->with('sucesso', 'Produto alterado com sucesso 🥳');
     }
 
     public function view(Produto $produto) {
@@ -76,6 +76,6 @@ class ProdutosController extends Controller
     public function deleteForReal(Produto $produto) {
         $produto->delete();
 
-        return redirect()->route('produtos')->with('sucesso', 'Produto apagado com sucesso!');
+        return redirect()->route('produtos')->with('sucesso', 'Produto apagado com sucesso! 🥳');
     }
 }

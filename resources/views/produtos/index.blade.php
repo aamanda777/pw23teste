@@ -1,3 +1,4 @@
+
 {{-- resources/views/produtos/index.blade.php --}}
 @extends('includes.base')
 
@@ -6,14 +7,10 @@
 @section('content')
 
 @if (session('sucesso'))
-    <div style="background-color:greenyellow;color:rebeccapurple;">
-        <marquee>
-        🎆 {{ session('sucesso') }}
-        </marquee>
-    </div>
+{{ session('sucesso') }}
 @endif
 
-<table border="1" style="border-color:rgb(52, 214, 87)">
+<table>
     <tr>
         <th>Nome</th>
         <th>Preço</th>

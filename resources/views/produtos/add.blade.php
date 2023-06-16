@@ -20,7 +20,7 @@
         <input type="number" name="price" step="0.01" placeholder="Preço" min="0" value="{{ old('price', $prod->price ?? '') }}">
         <br>
         <input type="number" name="quantity" placeholder="Quantidade" min="0" value="{{ old('quantity', $prod->quantity ?? '') }}">
-        <hr width="30%" align="left">
+        <hr>
         <input type="submit" value="Gravar">
     </form>
 @endsection
