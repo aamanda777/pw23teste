@@ -1,119 +1,159 @@
-
 {{-- resources/views/produtos/index.blade.php --}}
 @extends('includes.base')
 
 @section('title', 'Produtos')
 
 @section('content')
-
 @if (session('sucesso'))
-{{ session('sucesso') }}
+<div class="success-message">{{ session('sucesso') }}</div>
 @endif
 
-@extends("includes.base")
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 
-@section('title', 'Produtos')
 
-@section('content')
+<div class="search-container">
+    <form action="{{ route('produtos') }}" method="POST">
+        @csrf
+        <input type="text" name="busca" class="search-input" placeholder="Pesquisar"><br><br>
+        <select class="search-input2" name="ord">
+            <option value="asc">Crescente</option>
+            <option value="asc">Descrescente</option>
+        </select>
+        <button type="submit" class="search-button"><i class="fas fa-search"></i></button>
+    </form>
+</div>
 
-@if (session('sucesso'))
-<div class="sucesso">{{session('sucesso')}}</div>
-@endif
+<div class="table-container">
+    <table class="product-table">
+        <thead>
+            <tr>
+                <th>Nome</th>
+                <th>Preço</th>
+                <th>Quantidade</th>
+                <th>Editar</th>
+                <th>Apagar</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach ($prods as $prod)
+            <tr>
+                <td><a class="product-name" href="{{ route('produtos.view', $prod->id) }}">{{ $prod->name }}</a></td>
+                <td>R$ {{ number_format($prod->price, 2, ',', '.') }}</td>
+                <td>{{ $prod->quantity }}</td>
+                <td><a href="{{ route('produtos.edit', $prod->id) }}" class="btn btn-primary"><i
+                            class="fas fa-pen-square" style="color: #ff0080;"></i></a></td>
+                <td>
+                    <form action="{{ route('produtos.delete', $prod->id) }}" method="POST">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit" class="btn btn-danger"><i class="fas fa-trash"
+                                style="color: #ff0080;"></i></button>
+                    </form>
+                </td>
+            </tr>
+            @endforeach
+        </tbody>
+    </table>
+</div>
 
+<a href="{{ route('produtos.add') }}" class="add-button">Adicionar produto</a>
+@endsection
 <style>
     body {
-        padding: 20px;
+        background-color: #F5F5F5;
+        font-family: Arial, sans-serif;
+        color: #333;
+    }
+
+    .success-message {
+        text-transform: uppercase;
+        text-align: center;
+        background-color: #DFF0D8;
+        border: 1px solid #3C763D;
+        color: #3C763D;
+        padding: 10px;
+        margin-bottom: 10px;
+    }
+
+    .search-container {
+        text-align: center;
+        margin-bottom: 20px;
+    }
+
+    .search-input {
+        padding: 10px;
+        font-size: 16px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        width: 300px;
+        max-width: 100%;
+    }
+
+    .search-input2 {
+        padding: 6px;
+        font-size: 16px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        width: 200px;
+        max-width: 100%;
+    }
+
+    .search-button {
+        background-color: #ff0080;
+        color: #FFF;
+        border: none;
+        padding: 10px 20px;
+        margin-left: 10px;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+
+    .search-button i {
+        margin-right: 5px;
     }
 
     .table-container {
-        margin-top: 50px;
-    }
-
-    table {
-        border-collapse: collapse;
-        width: 100%;
-        max-width: 800px;
-        margin: 0 auto;
-    }
-
-    th,
-    td {
-        font-family: system-ui;
-        padding: 15px;
-        text-align: left;
-        border-bottom: 1px solid #ddd;
-        width: 33.33%;
-    }
-
-    th {
         text-transform: uppercase;
-        background-color: #ff0080;
-        font-weight: bold;
-        color: white;
-    }
-
-    tr:hover {
-        background-color: #ffe7f6;
-    }
-
-    .sucesso {
-        text-align: center;
-        font-weight: bold;
-        font-size: 2em;
-        margin-bottom: 1em;
-        font-family: system-ui;
-        text-transform: uppercase;
-        font-size: 20px;
-        color: #00d42e;
-    }
-
-    .link {
-        font-family: system-ui;
         margin: 20px auto;
-        display: block;
-        text-align: center;
-        color: #fff;
-        background-color: #9fd6ec;
-        padding: 12px;
-        text-decoration: none;
+        width: 80%;
+        background-color: rgb(255, 255, 255);
+        border: 1px solid rgb(255, 143, 188);
         border-radius: 4px;
-        transition: background-color 0.3s;
-        max-width: 200px;
+        padding: 20px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    .product-table {
+        text-transform: uppercase;
         width: 100%;
+    }
+
+    .product-table th {
+        text-transform: uppercase;
+        background-color: #F2F2F2;
+        padding: 10px;
+        text-align: left;
+    }
+
+    .product-table td {
+        text-transform: uppercase;
+        padding: 10px;
     }
 
     .product-name {
         text-transform: uppercase;
-        font-family: system-ui;
-        padding: 15px;
-        text-align: left;
-        border-bottom: 1px solid #ddd;
-        width: 33.33%;
-        color: #000;
+        color: #000000;
         text-decoration: none;
     }
+
+    .add-button {
+        text-transform: uppercase;
+        display: inline-block;
+        padding: 10px 20px;
+        margin-top: 20px;
+        background-color: #ff07c9;
+        color: #FFF;
+        text-decoration: none;
+        border-radius: 4px;
+    }
 </style>
-
-<table>
-    <tr>
-        <th>Nome</th>
-        <th>Preço</th>
-        <th>Quantidade</th>
-        <th>Editar</th>
-        <th>Apagar</th>
-    </tr>
-
-    @foreach ($prods as $prod)
-    <tr>
-        <td><a href="{{ route('produtos.view', $prod->id) }}">{{ $prod->name }}</a></td>
-        <td>R$ {{ number_format($prod->price, 2, ',', '.') }}</td>
-        <td>{{ $prod->quantity }}</td>
-        <td><a href="{{ route('produtos.edit', $prod->id) }}">Editar</a></td>
-        <td><a href="{{ route('produtos.delete', $prod->id) }}">Apagar</a></td>
-    </tr>
-    @endforeach
-
-</table>
-
-<a href="{{ route('produtos.add') }}">Adicionar produto</a>
-@endsection

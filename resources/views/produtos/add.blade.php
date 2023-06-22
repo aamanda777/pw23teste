@@ -4,113 +4,91 @@
 @section('title', 'Produtos - Adicionar')
 
 @section('content')
-
-<style>
-    body {
-        font-family: system-ui;
-        padding: 20px;
-    }
-
-    .container {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        height: 80vh;
-        margin-top: -5cm;
-    }
-
-    .form-container {
-        padding: 2cm;
-        border-radius: 10px;
-        width: 60%;
-    }
-
-    .title {
-        text-align: center;
-        font-size: 2em;
-        margin-bottom: 1em;
-        font-family: system-ui;
-        text-transform: uppercase;
-        font-size: 30px;
-    }
-
-    .input-field {
-        background-color: #ecf4f5;
-        border: none;
-        border-radius: 5px;
-        padding: 12px;
-        width: 100%;
-        font-family: system-ui;
-        color: rgb(0, 0, 0)
-    }
-
-    button {
-        font-family: system-ui;
-        margin: 20px auto;
-        display: block;
-        text-align: center;
-        color: #fff;
-        background-color: #ff009d;
-        padding: 12px;
-        text-decoration: none;
-        border-radius: 4px;
-        max-width: 200px;
-        width: 100%;
-    }
-
-    #error-container {
-        margin-bottom: 1em;
-    }
-
-    ul {
-        font-weight: bold;
-        font-size: 2em;
-        margin-bottom: 1em;
-        font-family: system-ui;
-        text-transform: uppercase;
-        font-size: 15px;
-        color: #ff0000;
-    }
-</style>
-
+<div class="container">
     <h2>Adicione seu produto</h2>
 
-    @if ($errors)
+@if ($errors)
+    <div class="alert alert-danger">
         @foreach ($errors->all() as $err)
             {{ $err }}<br>
         @endforeach
-    @endif
+    </div>
+@endif
 
-    <form action="{{ url()->current() }}" method="post">
+<form action="{{ url()->current() }}" method="post">
+    @csrf
+    <div class="form-group">
+        <label for="name">Nome do produto</label>
+        <input type="text" class="form-control" id="name" name="name" placeholder="Nome do produto" value="{{ old('name', $prod->name ?? '') }}">
+    </div>
+    <div class="form-group">
+        <label for="price">Preço</label>
+        <input type="number" class="form-control" id="price" name="price" step="0.01" placeholder="Preço" min="0" value="{{ old('price', $prod->price ?? '') }}">
+    </div>
+    <div class="form-group">
+        <label for="quantity">Quantidade</label>
+        <input type="number" class="form-control" id="quantity" name="quantity" placeholder="Quantidade" min="0" value="{{ old('quantity', $prod->quantity ?? '') }}">
+    </div>
+    <hr>
+    <button type="submit" class="btn btn-primary">Gravar</button>
+</form>
 
-        @csrf
-        <input type="text" name="name" placeholder="Nome do produto" value="{{ old('name', $prod->name ?? '') }}">
-        <br>
-        <input type="number" name="price" step="0.01" placeholder="Preço" min="0" value="{{ old('price', $prod->price ?? '') }}">
-        <br>
-        <input type="number" name="quantity" placeholder="Quantidade" min="0" value="{{ old('quantity', $prod->quantity ?? '') }}">
-        <hr>
-        <input type="submit" value="Gravar">
-    </form>
-
-    <script>
-        window.addEventListener('DOMContentLoaded', function () {
-            var errorContainer = document.getElementById('error-container');
-            var errorMessages = document.getElementsByClassName('error-message');
-
-            if (errorContainer && errorMessages.length > 0) {
-                var errorMessageList = document.createElement('ul');
-
-                for (var i = 0; i < errorMessages.length; i++) {
-                    var errorMessage = errorMessages[i].value;
-                    var listItem = document.createElement('li');
-                    listItem.textContent = errorMessage;
-                    errorMessageList.appendChild(listItem);
-                }
-
-                errorContainer.appendChild(errorMessageList);
-            }
-        });
-    </script>
-
+</div>
 @endsection
+<style>
+    body {
+        background-color: #F5F5F5;
+        font-family: Arial, sans-serif;
+        color: #333;
+    }
+
+    .container {
+        margin: 20px auto;
+        width: 80%;
+        background-color: #FFF;
+        border: 1px solid #DDD;
+        border-radius: 4px;
+        padding: 20px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    h2 {
+        color: #333;
+        font-size: 24px;
+        margin-bottom: 20px;
+    }
+
+    .alert {
+        background-color: #F8D7DA;
+        border: 1px solid #D6D6D6;
+        color: #721C24;
+        padding: 10px;
+        margin-bottom: 10px;
+    }
+
+    .form-group {
+        margin-bottom: 20px;
+    }
+
+    label {
+        font-weight: bold;
+        margin-bottom: 5px;
+    }
+
+    .form-control {
+        width: 100%;
+        padding: 10px;
+        font-size: 16px;
+        border-radius: 4px;
+        border: 1px solid #DDD;
+    }
+
+    .btn-primary {
+        padding: 10px 20px;
+        font-size: 16px;
+        background-color: #007BFF;
+        border-color: #007BFF;
+        color: #FFF;
+        border-radius: 4px;
+    }
+</style>

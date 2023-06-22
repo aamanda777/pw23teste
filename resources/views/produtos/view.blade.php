@@ -4,46 +4,49 @@
 @section('title', 'Produtos - Ver')
 
 @section('content')
+<div class="container">
+    <h2>{{ $prod->name }}</h2>
+    <p>Preço: R$ {{ number_format($prod->price, 2, ',', '.') }}</p>
+    <p>Quantidade: {{ $prod->quantity }}</p>
+<p>
+    <a class="linkzinho" href="{{ route('produtos') }}">Voltar</a>
+</p>
+
+</div>
+@endsection
 <style>
     body {
+        background-color: #F5F5F5;
+        font-family: Arial, sans-serif;
+        color: #333;
+    }
+
+    .container {
+        text-transform: uppercase;
+        margin: 20px auto;
+        width: 80%;
+        background-color: #FFF;
+        border: 1px solid #DDD;
+        border-radius: 4px;
         padding: 20px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     }
 
     h2 {
-        font-family: system-ui;
-        text-align: center;
         text-transform: uppercase;
-        font-size: 28px;
-        margin-bottom: 15px;
+        color: #333;
+        font-size: 24px;
+        margin-bottom: 20px;
     }
 
     p {
-        font-family: system-ui;
-        text-align: center;
-        font-size: 18px;
+        text-transform: uppercase;
         margin-bottom: 10px;
     }
 
     .linkzinho {
-        font-family: system-ui;
-        margin: 30px auto;
-        display: block;
-        text-align: center;
-        color: #fff;
-        background-color: #9fd6ec;
-        padding: 10px 16px;
+        text-transform: uppercase;
+        color: #f500a3;
         text-decoration: none;
-        border-radius: 4px;
-        transition: background-color 0.3s;
-        max-width: 300px;
-        width: 100%;
     }
 </style>
-    <h2>{{ $prod->name }}</h2>
-    <p>Preço: R$ {{ number_format($prod->price, 2, ',', '.') }}</p>
-    <p>Quantidade: {{ $prod->quantity }}</p>
-
-    <p>
-        <a href="{{ route('produtos') }}">Voltar</a>
-    </p>
-@endsection
