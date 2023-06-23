@@ -16,13 +16,11 @@ class ProdutosController extends Controller
             $ord = $request->ord == 'asc' ? 'asc' : 'desc';
 
 
-           $prods = Produto::where('name' , 'LIKE' , "%($busca)%")->orderBy('name' , $ord)->get();
+           $prods = Produto::where('name' , 'LIKE' , "%{$busca}%")->orderBy('name' , $ord)->paginate(2);
         }else{
-            $prods = Produto::all();
+            $prods = Produto::paginate();
         }
 
-
-        $prods = Produto::all();
 
         # Busca tudo com apagados
         # $prods = Produto::withTrashed()->get();

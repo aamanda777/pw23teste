@@ -17,7 +17,7 @@
         <input type="text" name="busca" class="search-input" placeholder="Pesquisar"><br><br>
         <select class="search-input2" name="ord">
             <option value="asc">Crescente</option>
-            <option value="asc">Descrescente</option>
+            <option value="desc">Descrescente</option>
         </select>
         <button type="submit" class="search-button"><i class="fas fa-search"></i></button>
     </form>
@@ -54,6 +54,8 @@
             @endforeach
         </tbody>
     </table>
+    {{ $prods->links('vendor.pagination.default')}}
+
 </div>
 
 <a href="{{ route('produtos.add') }}" class="add-button">Adicionar produto</a>

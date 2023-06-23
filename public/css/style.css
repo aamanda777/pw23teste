@@ -1,0 +1,16 @@
+.pagination .page-item {
+    display: inline-block;
+    margin-right: 5px;
+}
+
+.pagination .page-link {
+    padding: 5px 10px;
+    border: none;
+    background-color: transparent;
+    color: #333;
+    text-decoration: none;
+}
+
+.pagination .page-link:hover {
+    color: #ff0080;
+}
