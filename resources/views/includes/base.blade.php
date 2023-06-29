@@ -15,6 +15,7 @@
         <ul>
             <li><a href="{{ route('home')}} ">Página Inicial</a></li>
             <li><a href="{{ route('produtos')}}">Produtos</a></li>
+
         </ul>
     </div>
     <hr>
